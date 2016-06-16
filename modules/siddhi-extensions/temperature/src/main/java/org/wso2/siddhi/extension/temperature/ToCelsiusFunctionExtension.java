@@ -1,4 +1,4 @@
-package org.wso2.siddhi.extension.var;
+package org.wso2.siddhi.extension.temperature;
 
 import org.wso2.siddhi.core.config.ExecutionPlanContext;
 import org.wso2.siddhi.core.exception.ExecutionPlanRuntimeException;
@@ -8,20 +8,19 @@ import org.wso2.siddhi.query.api.definition.Attribute;
 import org.wso2.siddhi.query.api.exception.ExecutionPlanValidationException;
 
 /**
- * Created by dilini92 on 6/13/16.
+ * Created by dilini92 on 6/16/16.
  */
-public class HistoricalSimulationFunctionExtension extends FunctionExecutor {
+public class ToCelsiusFunctionExtension extends FunctionExecutor {
     @Override
     protected void init(ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
         if (attributeExpressionExecutors.length != 1) {
-            throw new ExecutionPlanValidationException("Invalid no of arguments passed to math:custom() function, " +
+            throw new ExecutionPlanValidationException("Invalid no of arguments passed to math:sin() function, " +
                     "required 1, but found " + attributeExpressionExecutors.length);
         }
         Attribute.Type attributeType = attributeExpressionExecutors[0].getReturnType();
         if (!((attributeType == Attribute.Type.INT))) {
             throw new ExecutionPlanValidationException("Invalid parameter type found for the argument of math:sin() function, " +
-                    "required " + Attribute.Type.INT +
-                    ", but found " + attributeType.toString());
+                    "required " + Attribute.Type.INT + ", but found " + attributeType.toString());
         }
     }
 
@@ -34,12 +33,12 @@ public class HistoricalSimulationFunctionExtension extends FunctionExecutor {
     protected Object execute(Object data) {
         if (data != null) {
             //type-conversion
-            if (data instanceof Float) {
-                float inputInt = (Float) data;
-
+            if (data instanceof Integer) {
+                int inputInt = (Integer) data;
+                return (inputInt - 32) * 5 / 9;
             }
         } else {
-            throw new ExecutionPlanRuntimeException("Input to the math:custom() function cannot be null");
+            throw new ExecutionPlanRuntimeException("Input to the math:celsius() function cannot be null");
         }
         return null;
     }

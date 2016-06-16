@@ -42,6 +42,7 @@
         <module>map</module>
         <module>kalman-filter</module>
         <module>var</module>
+        <module>temperature</module>
     </modules>
 
 </project>
