@@ -17,5 +17,8 @@
 
 historical=org.wso2.siddhi.extension.var.HistoricalVaRStreamProcessor
 parametric=org.wso2.siddhi.extension.var.ParametricVaRStreamProcessor
-mcUpdated=org.wso2.siddhi.extension.var.MonteCarloPortfolioStreamProcessor
+#montecarlo(batchSize,ci,timeSlice,numberOfTrials,calculationsPerDay,symbol,price)
+montecarlo=org.wso2.siddhi.extension.var.MonteCarloPortfolioStreamProcessor
+#portfolioChange(batchSize,ci,timeSlice,numberOfTrials,calculationsPerDay,portfolioID,shares,symbol)
+portfolioChange=org.wso2.siddhi.extension.var.PortfolioStreamProcessor
 

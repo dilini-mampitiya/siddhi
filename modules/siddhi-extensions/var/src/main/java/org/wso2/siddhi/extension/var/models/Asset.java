@@ -9,7 +9,7 @@ import java.util.Iterator;
  * Created by flash on 6/30/16.
  */
 public class Asset {
-    private double currentStockPrice;
+    private double currentStockPrice=0;
     private ArrayList<Double> latestReturnValues;   //check with others if this can be replaced with stat object
     private double[] simulatedList = null;
     private DescriptiveStatistics returnValueSet;

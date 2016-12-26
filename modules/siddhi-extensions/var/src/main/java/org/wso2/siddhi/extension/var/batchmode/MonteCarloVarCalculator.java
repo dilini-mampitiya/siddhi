@@ -16,7 +16,7 @@ public class MonteCarloVarCalculator extends VaRPortfolioCalc {
     private int numberOfTrials;
     private int calculationsPerDay;
     private double timeSlice;
-    private boolean toggle = true;
+    public static MonteCarloVarCalculator calculatorInstance = null;
 
     public MonteCarloVarCalculator(int limit, double ci,
                                    int numberOfTrials, int calculationsPerDay, double timeSlice) {
@@ -25,6 +25,7 @@ public class MonteCarloVarCalculator extends VaRPortfolioCalc {
         this.calculationsPerDay = calculationsPerDay;
         this.timeSlice = timeSlice;
     }
+
 
     /**
      * calculate the var metric using monte carlo simulation
@@ -138,6 +139,16 @@ public class MonteCarloVarCalculator extends VaRPortfolioCalc {
         }
 
         return 0;
+    }
+
+    public static MonteCarloVarCalculator getInstance(int limit, double ci,
+                                                      int numberOfTrials, int calculationsPerDay, double timeSlice) {
+        if (calculatorInstance == null) {
+            calculatorInstance = new MonteCarloVarCalculator(limit, ci, numberOfTrials, calculationsPerDay, timeSlice);
+            return calculatorInstance;
+        } else {
+            return calculatorInstance;
+        }
     }
 
 }

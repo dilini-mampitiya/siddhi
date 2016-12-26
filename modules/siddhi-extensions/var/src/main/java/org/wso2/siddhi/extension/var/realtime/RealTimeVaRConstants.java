@@ -16,5 +16,6 @@ public class RealTimeVaRConstants {
     public static String PORTFOLIO_DETAILS_SQL = "SELECT symbol, noOfShares from portfolioDetails where portfolioID = ";
     public static String SYMBOLS_SQL = "select distinct(symbol) from symbol natural join portfolioDetails";
 
-    public static int NUMBER_OF_PARAMETERS = 4;
+    public static int NUMBER_OF_PARAMETERS = 3;
+    public static int NUMBER_OF_PARAMETERS_INPUT_STREAM = 2;
 }

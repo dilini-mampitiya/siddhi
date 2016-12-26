@@ -26,6 +26,10 @@ public class Portfolio {
         return MONTECARLO_SIMULATION_currentPortfolioValue;
     }
 
+    /**
+     * this method store the portfolio value which is used in monte carlo method
+     * @param MONTECARLO_SIMULATION_currentPortfolioValue
+     */
     public void setMONTECARLO_SIMULATION_currentPortfolioValue(double MONTECARLO_SIMULATION_currentPortfolioValue) {
         this.MONTECARLO_SIMULATION_currentPortfolioValue = MONTECARLO_SIMULATION_currentPortfolioValue;
     }

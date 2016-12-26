@@ -21,9 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by flash on 7/7/16.
+ * Created by yellowflash on 12/25/16.
  */
-public class MonteCarloPortfolioStreamProcessor extends StreamProcessor {
+public class PortfolioStreamProcessor extends StreamProcessor {
     private int batchSize = 251;                                        // Maximum # of events, used for regression calculation
     private double ci = 0.95;                                           // Confidence Interval
     private VaRPortfolioCalc varCalculator = null;
@@ -31,21 +31,19 @@ public class MonteCarloPortfolioStreamProcessor extends StreamProcessor {
     private int numberOfTrials = 2000;
     private int calculationsPerDay = 100;
     private double timeSlice = 0.01;
-
-
     @Override
     protected void process(ComplexEventChunk<StreamEvent> streamEventChunk, Processor nextProcessor, StreamEventCloner streamEventCloner, ComplexEventPopulater complexEventPopulater) {
         synchronized (this) {
             while (streamEventChunk.hasNext()) {
                 ComplexEvent complexEvent = streamEventChunk.next();
-                Object inputData[] = new Object[RealTimeVaRConstants.NUMBER_OF_PARAMETERS_INPUT_STREAM];
+                Object inputData[] = new Object[RealTimeVaRConstants.NUMBER_OF_PARAMETERS];
 
-                for (int i = 0; i < RealTimeVaRConstants.NUMBER_OF_PARAMETERS_INPUT_STREAM; i++) {
+                for (int i = 0; i < RealTimeVaRConstants.NUMBER_OF_PARAMETERS; i++) {
                     inputData[i] = attributeExpressionExecutors[i + 5].execute(complexEvent);
                 }
 
                 Object outputData[] = new Object[1];
-                outputData[0] = varCalculator.newCalculateValueAtRisk(inputData);
+                outputData[0] = varCalculator.calculateValueAtRiskForPortfolioChange(inputData);
                 // Skip processing if user has specified calculation interval
                 if (outputData[0] == null) { //if there is no output
                     streamEventChunk.remove();
@@ -54,12 +52,11 @@ public class MonteCarloPortfolioStreamProcessor extends StreamProcessor {
                 }
             }
         }
-        nextProcessor.process(streamEventChunk);
+        nextProcessor.process(streamEventChunk); //process the next stream event
     }
 
     @Override
     protected List<Attribute> init(AbstractDefinition inputDefinition, ExpressionExecutor[] attributeExpressionExecutors, ExecutionPlanContext executionPlanContext) {
-        // Capture constant inputs
         if (attributeExpressionExecutors[0] instanceof ConstantExpressionExecutor) {
             paramPosition = (attributeExpressionLength + 4) / 2;
             try {
