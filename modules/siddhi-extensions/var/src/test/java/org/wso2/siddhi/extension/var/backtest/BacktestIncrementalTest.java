@@ -26,7 +26,7 @@ public class BacktestIncrementalTest {
      * set parameters before run
      **/
     private static final double VAR_CI = 0.90;
-    private static final String DATA_SET = "set-2";
+    private static final String DATA_SET = "set-3";
     private static final String METHOD = "historical";
 //    private static final String METHOD = "parametric";
 //    private static final String METHOD = "montecarlo";
@@ -70,11 +70,11 @@ public class BacktestIncrementalTest {
         Portfolio portfolio = varCalculator.createPortfolio("1", assets);
         varCalculator.addPortfolio("1", portfolio);
 
-        for (int i = 0; i < 216; i++) {
+        for (int i = 0; i < 324; i++) {
             varCalculator.calculateValueAtRisk(list.get(i));
         }
 
-        for (int i = 216; i < list.size(); i++) {
+        for (int i = 324; i < list.size(); i++) {
 
             //System.out.print("Event " + (i) + " : ");
 
